@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050505">
+<title>Danny Lee | Global Strategist & Brand Architect</title>
+<style>
+:root{--bg:#050505;--white:#f5f5f5;--muted:#99999f;--accent:#2997ff;--border:rgba(255,255,255,.12)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+section[id],footer[id]{scroll-margin-top:80px}
+.zh{display:none!important}.en{display:block}
+body.zh-active .zh{display:block!important}
+body.zh-active .en{display:none!important}
+body.zh-active span.zh{display:inline!important}
+body.zh-active .hero-title .zh{display:block!important}
+.nav{position:fixed;inset:0 0 auto;height:68px;padding:0 5vw;display:flex;align-items:center;justify-content:space-between;z-index:1000;background:rgba(0,0,0,.68);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+.logo{font-size:20px;font-weight:750;letter-spacing:-.5px}
+.nav-right{display:flex;align-items:center;gap:25px;color:#aaa;font-size:12px}
+.nav-right a:hover{color:#fff}
+.lang-switch{padding:7px 16px;border:1px solid #555;background:transparent;border-radius:30px;color:#fff;cursor:pointer;font-size:12px;transition:.3s}
+.lang-switch:hover{border-color:var(--accent);color:var(--accent)}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:100px 5vw 85px;overflow:hidden}
+.hero-content{flex:1.2;z-index:10;max-width:60%}
+.hero-title{font-size:clamp(56px,6.5vw,110px);line-height:.98;letter-spacing:-.075em;font-weight:800}
+.hero-title span{display:block;background:linear-gradient(180deg,#fff 0%,#e5e5e5 55%,#999 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-title .line-three{color:#d0d0d0}
+.hero-title .zh{font-size:clamp(42px,4.8vw,80px);letter-spacing:-.02em;line-height:1.2;margin-bottom:10px}
+.hero-subtitle{max-width:510px;margin-top:43px;color:var(--white);font-size:clamp(17px,1.6vw,23px);line-height:1.55;letter-spacing:-.02em;font-weight:400}
+.hero-meta{margin-top:55px;display:flex;align-items:center;gap:20px;color:#888;font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+.hero-meta::before{content:"";width:40px;height:1px;background:var(--accent)}
+.hero-image-wrapper{position:absolute;right:0;top:0;width:55vw;height:100vh;z-index:1;background:radial-gradient(circle at 60% 40%,#141414,transparent 70%)}
+.hero-photo{width:100%;height:100%;object-fit:cover;object-position:center 15%;-webkit-mask-image:linear-gradient(to left,#000 40%,transparent 100%);mask-image:linear-gradient(to left,#000 40%,transparent 100%);filter:grayscale(100%) contrast(1.15) brightness(.85)} /* 新增：首屏人物下方的品牌长图 */
+.brands-strip-section {
+  width: 100%;
+  background: var(--bg);
+  padding: 0 5vw 40px; /* 左右留白，底部留一点空间 */
+  position: relative;
+  z-index: 10;
+}
+.brands-strip-inner {
+  max-width: 1450px; /* 与页面其他区块对齐 */
+  margin: auto;
+  border-top: 1px solid rgba(255,255,255,.05); /* 极细的顶部分隔线，增加质感 */
+  padding-top: 30px;
+}
+.brands-title {
+  color: #666;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.brands-strip-inner img {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+.brands-strip-inner img:hover {
+  opacity: 1;
+}
+/* 手机端适配 */
+@media(max-width: 768px) {
+  .brands-strip-section {
+    padding: 0 5vw 30px;
+    margin-top: -30px; /* 手机上稍微往上提一点，视觉更紧凑 */
+  }
+  .brands-title {
+    font-size: 10px;
+    margin-bottom: 15px;
+  }
+}
+.section{max-width:1450px;margin:auto;padding:115px 7vw;border-bottom:1px solid var(--border)}
+.section-label{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:35px}
+.statement{font-size:clamp(25px,3.3vw,43px);font-weight:600;line-height:1.35;letter-spacing:-.035em;color:#c7c7cb;max-width:1200px}
+.statement .highlight{color:var(--accent)}
+.experience-list{border-top:1px solid var(--border)}
+.exp-item{border-bottom:1px solid var(--border)}
+.exp-header{padding:34px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;gap:20px}
+.exp-header:hover .exp-brand{color:var(--accent)}
+.exp-brand{font-size:clamp(27px,3vw,38px);font-weight:750;transition:.3s}
+.exp-time{color:var(--accent);font-size:12px;font-weight:650;margin:8px 0}
+.exp-role{color:var(--muted);font-size:16px}
+.exp-icon{font-size:30px;color:#888;transition:transform .3s}
+.exp-item.active .exp-icon{transform:rotate(45deg);color:#fff}
+.exp-details{max-height:0;opacity:0;overflow:hidden;transition:max-height .5s ease,opacity .4s ease}
+.exp-item.active .exp-details{opacity:1}
+.exp-inner{padding:5px 0 45px 22px;border-left:2px solid var(--accent);display:flex;gap:40px;flex-wrap:wrap}
+.exp-text{flex:1;min-width:250px;max-width:460px}
+.exp-text p{color:#aaa;font-size:15px;margin-bottom:20px}
+.exp-text ul{list-style:none}
+.exp-text li{position:relative;padding-left:18px;margin-bottom:13px;color:#ddd;font-size:14px}
+.exp-text li::before{content:"↳";position:absolute;left:0;color:var(--accent)}
+.work-gallery{flex:1.3;min-width:280px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;align-content:start}
+.gallery-item{aspect-ratio:16/9;position:relative;overflow:hidden;border-radius:4px;background:#151515;border:1px solid var(--border);cursor:pointer;display:block}
+.gallery-item img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%) brightness(.75);transition:.45s}
+.gallery-item:hover img{filter:grayscale(0) brightness(1);transform:scale(1.06)}
+.gallery-overlay{position:absolute;inset:auto 0 0;padding:12px;background:linear-gradient(transparent,rgba(0,0,0,.9));opacity:0;transition:.3s;font-size:11px}
+.gallery-item:hover .gallery-overlay{opacity:1}
+.references-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;margin-top:40px}
+.ref-card{border:1px solid var(--border);background:#090909;padding:30px;display:flex;flex-direction:column;gap:20px;border-radius:12px}
+.ref-img{width:100%;aspect-ratio:16/10;border-radius:4px;object-fit:cover;filter:grayscale(1);background:#151515;border:1px solid var(--border);transition:filter .3s}
+.ref-img:hover{filter:grayscale(0)}
+.ref-name{font-size:18px;font-weight:700;color:var(--white);line-height:1.2}
+.ref-title{font-size:13px;color:var(--accent);line-height:1.5;margin-top:5px}
+.ref-quote{margin:18px 0 0;padding:16px 0 0;border-top:1px solid var(--border);font-size:13.5px;line-height:1.7;color:#b8b8bd;font-style:italic;max-height:180px;overflow-y:auto;-webkit-mask-image:linear-gradient(to bottom,#000 85%,transparent 100%);mask-image:linear-gradient(to bottom,#000 85%,transparent 100%)}
+.ref-quote::-webkit-scrollbar{width:4px}
+.ref-quote::-webkit-scrollbar-thumb{background:#333;border-radius:2px}
+.ref-quote::-webkit-scrollbar-track{background:transparent}
+.ref-source{display:block;margin-top:10px;font-size:11px;font-style:normal;letter-spacing:.08em;text-transform:uppercase;color:#666}
+.lightbox{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.96);align-items:center;justify-content:center;padding:30px}
+.lightbox.active{display:flex}
+.lightbox img{max-width:92vw;max-height:88vh;object-fit:contain}
+.lightbox-close{position:absolute;right:35px;top:20px;font-size:36px;cursor:pointer;color:#fff}
+.quote-section{padding:155px 5vw;text-align:center;background:radial-gradient(circle at center,#171717,#050505 70%)}
+.quote{font-size:clamp(35px,6vw,78px);line-height:1.1;font-weight:800;letter-spacing:-.06em}
+footer{max-width:1450px;margin:auto;padding:85px 7vw;display:flex;justify-content:space-between;align-items:flex-end;gap:35px;flex-wrap:wrap}
+.contact-btn{display:inline-block;margin-top:25px;background:#fff;color:#000;border-radius:40px;padding:15px 35px;font-size:14px;font-weight:700;transition:.3s}
+.contact-btn:hover{transform:translateY(-3px);background:var(--accent);color:#fff}
+.footer-info{color:#888;text-align:right;font-size:13px;line-height:2}
+@media(max-width:1100px){.nav-right{gap:12px}.work-gallery{grid-template-columns:repeat(3,1fr)}.hero-title{font-size:clamp(60px,9vw,100px)}.hero-content{max-width:100%}}
+@media(max-width:768px){.nav{height:60px}.nav-right>a{display:none}.hero{flex-direction:column;padding:130px 5vw 100px;text-align:center}.hero-image-wrapper{width:100vw;height:100vh;opacity:.35}.hero-photo{-webkit-mask-image:linear-gradient(to top,#000 20%,transparent 100%);mask-image:linear-gradient(to top,#000 20%,transparent 100%)}.hero-title{font-size:clamp(48px,11vw,75px);letter-spacing:-.065em}.work-gallery{grid-template-columns:repeat(2,1fr)}.exp-inner{flex-direction:column}footer{flex-direction:column;text-align:left}.footer-info{text-align:left}}
+@media(max-width:500px){.work-gallery{grid-template-columns:repeat(1,1fr)}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="logo">Danny Lee.</div>
+  <div class="nav-right">
+    <a href="#profile"><span class="en">Profile</span><span class="zh">簡介</span></a>
+    <a href="#experience"><span class="en">Experiences</span><span class="zh">經歷</span></a>
+    <a href="#recommendations"><span class="en">Recommendations</span><span class="zh">推薦人</span></a>
+    <a href="#contact"><span class="en">Contact</span><span class="zh">聯繫</span></a>
+    <button class="lang-switch" id="langBtn" onclick="toggleLang()">EN / CN</button>
+  </div>
+</nav>
+<header class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">
+      <span class="en">Global Strategist.</span>
+      <span class="en">Brand Architect.</span>
+      <span class="en line-three">AI Pioneer.</span>
+      <span class="zh">全球戰略家。<br>品牌架構師。<br>AI 創新先鋒。</span>
+    </h1>
+    <p class="hero-subtitle">
+      <span class="en">Bridging the commercial divide between East and West. Transforming brand vision into business growth with 20+ years of top-tier marketing leadership and cross-cultural growth strategies that deliver measurable business impact.</span>
+      <span class="zh">跨越東西方商業鴻溝，以全球視野連接品牌戰略、創意創新與商業增長。</span>
+    </p>
+    <div class="hero-meta">
+      <span class="en">20+ Years of Brand & Business Leadership</span>
+      <span class="zh">20年以上品牌與商業領導經驗</span>
+    </div>
+  </div>
+  <div class="hero-image-wrapper">
+    <img src="avatar.jpg" alt="Danny Lee" class="hero-photo" fetchpriority="high" onerror="this.style.display='none'">
+  </div>
+</header> <section class="brands-strip-section">
+  <div class="brands-strip-inner">
+    <div class="brands-title">SELECTED BRANDS</div>
+    <!-- 请确保图片文件名一致，如果你叫别的名字，请在这里修改 -->
+    <img src="selected-brands.png" alt="Danny Lee - Selected Brands" loading="lazy">
+  </div>
+</section>
+<section class="section" id="profile">
+  <div class="section-label">01 / <span class="en">The Profile</span><span class="zh">個人簡介</span></div>
+  <div class="statement">
+    <span class="en">A global strategic leader combining <span class="highlight">20+ years of top-tier marketing leadership</span> with next-generation AI-native creative capabilities. From Nike and Under Armour to Bosideng and Gogoro, I build <span class="highlight">cross-cultural growth strategies</span> that turn creative vision into measurable <span class="highlight">business impact</span>.</span>
+    <span class="zh">擁有 <span class="highlight">20年國際品牌與商業領導經驗</span>，結合 <span class="highlight">全球戰略視野</span>、中國市場洞察與新一代 AI 創意能力，將品牌願景轉化為實際的 <span class="highlight">商業成果</span>。</span>
+  </div>
+</section>
+<section class="section" id="experience">
+  <div class="section-label">02 / <span class="en">Experiences</span><span class="zh">精選經歷</span></div>
+  <div class="experience-list" id="experienceList"></div>
+</section>
+<section class="section" id="recommendations">
+  <div class="section-label">03 / <span class="en">Recommendations</span><span class="zh">推薦人</span></div>
+  <div class="references-grid">
+    <div class="ref-card">
+      <img src="ref-1.jpg" class="ref-img" alt="Kirk James" onerror="this.style.visibility='hidden'">
+      <div><div class="ref-name">KIRK JAMES</div><div class="ref-title"><span class="en">Principal CEO at Cinco, Former Chief Brand Officer Gogoro, Former Brand Design Nike</span><span class="zh">Cinco 首席執行官，前 Gogoro 首席品牌官，前 Nike 品牌設計</span></div></div>
+      <blockquote class="ref-quote">
+        <span class="en">“I’ve been a colleague and fan of Danny for several years. He’s a true brand builder, seamlessly connecting business strategy, marketing innovation and storytelling. What sets him apart is his ability to turn global strategy into meaningful local experiences, driven by a genuine passion for brands, culture and consumers. He combines vision with the ability to make things happen. Respect.”</span>
+        <span class="zh">「我與 Danny 共事多年，一直是他的粉絲。他是真正意義上的品牌建設者，能將商業戰略、營銷創新與品牌敘事無縫連接。他最與眾不同之處，在於能把全球戰略轉化為有意義的本地體驗，這源於他對品牌、文化與消費者的真摯熱情。他既有願景，也有把事做成的能力。致敬。」</span>
+        <cite class="ref-source"><span class="en">— LinkedIn Recommendation</span><span class="zh">— LinkedIn 推薦</span></cite>
+      </blockquote>
+    </div>
+    <div class="ref-card">
+      <img src="ref-2.jpg" class="ref-img" alt="Angel Chen" onerror="this.style.visibility='hidden'">
+      <div><div class="ref-name">ANGEL CHEN</div><div class="ref-title"><span class="en">Chief Growth Officer, Ogilvy China</span><span class="zh">奧美中國首席增長官</span></div></div>
+      <blockquote class="ref-quote">
+        <span class="en">“Danny is more than an experienced marketing leader; he’s a forward-thinking innovator in media and content. Combining global perspective with deep local market insight, he bridges East and West seamlessly through both language and culture. For any business serious about building brands and expanding globally, Danny is an exceptional partner. Highly recommended.”</span>
+        <span class="zh">「Danny 不僅是資深的營銷領導者，更是媒介與內容領域的前瞻創新者。他兼具全球視野與深厚的本地市場洞察，在語言與文化上都無縫連接東西方。對於任何認真做品牌、希望全球化發展的企業而言，Danny 都是難得的合作夥伴。強烈推薦。」</span>
+        <cite class="ref-source"><span class="en">— LinkedIn Recommendation</span><span class="zh">— LinkedIn 推薦</span></cite>
+      </blockquote>
+    </div>
+    <div class="ref-card">
+      <img src="ref-3.jpg" class="ref-img" alt="Matthew Jung" onerror="this.style.visibility='hidden'">
+      <div><div class="ref-name">MATTHEW JUNG</div><div class="ref-title"><span class="en">Regional VP/GM - Greater China (Topgolf Callaway Brands), VP/GM, Nike (Converse) Greater China, CEO - Li-Ning International</span><span class="zh">Topgolf Callaway 大中華區副總裁/總經理，前 Nike (Converse) 大中華區副總裁/總經理，前李寧國際 CEO</span></div></div>
+      <blockquote class="ref-quote">
+        <span class="en">“I worked with Danny during his time leading Media at Nike Greater China, when we delivered some truly transformative marketing work as one integrated team. Despite an incredibly demanding, matrix-driven environment and a lean team, Danny consistently overdelivered. He managed complex stakeholder and agency relationships exceptionally well, bringing bold, creative and disruptive ideas to life across the region. It was a remarkable period for youth and sport marketing, a true golden era, driven by Danny and his team.”</span>
+        <span class="zh">「我在 Danny 領導 Nike 大中華區媒介期間與他共事，當時我們作為一個整合團隊，交付了一些真正具有變革性的營銷工作。儘管環境極其嚴苛、矩陣化，團隊又精簡，Danny 始終超額完成任務。他出色地管理了複雜的各方利益相關者與代理商關係，在整個區域把大膽、有創意、具顛覆性的想法落地成真。那是青年與運動營銷令人難忘的時期，一段真正的黃金時代——由 Danny 和他的團隊驅動。」</span>
+        <cite class="ref-source"><span class="en">— LinkedIn Recommendation</span><span class="zh">— LinkedIn 推薦</span></cite>
+      </blockquote>
+    </div>
+    <div class="ref-card">
+      <img src="ref-4.jpg" class="ref-img" alt="Steve Hsai" onerror="this.style.visibility='hidden'">
+      <div><div class="ref-name">STEVE HSAI</div><div class="ref-title"><span class="en">Co-Founder/Chairman of PlayNovate, Inc., Serial Entrepreneur, Angel Investor, Board Member</span><span class="zh">PlayNovate 聯合創始人/董事長，連續創業者，天使投資人，董事會成員</span></div></div>
+      <blockquote class="ref-quote">
+        <span class="en">“As Founder &amp; CEO of Agenda, later acquired by WPP Wunderman, I worked closely with Danny when we were Nokia Greater China’s digital agency of record. Danny led the multi-million-pound account and a sizeable team, consistently delivering for a demanding, fast-paced client. He was a trusted, empathetic and commercially sharp leader who built a close-knit, high-performing team and became the client’s go-to problem solver. What truly sets Danny apart is his ability to navigate complexity and get things done. I always trusted him with the toughest challenges, even the seemingly impossible, knowing he would find a way to deliver.”</span>
+        <span class="zh">「作為 Agenda（後被 WPP Wunderman 收購）的創始人兼 CEO，在我們擔任 Nokia 大中華區數字代理商期間，我與 Danny 密切合作。Danny 負責這個數百萬英鎊的項目和一支規模可觀的團隊，始終為要求嚴苛、節奏極快的客戶交付成果。他是一位值得信賴、富有同理心、商業嗅覺敏銳的領導者，打造了一支緊密團結、高績效的團隊，並成為客戶首選的問題解決者。Danny 真正與眾不同之處，在於他駕馭複雜局面、把事情做成的能力。我總是把最艱難的挑戰——甚至是看似不可能的任務——交給他，因為我知道他一定能找到交付的辦法。」</span>
+        <cite class="ref-source"><span class="en">— LinkedIn Recommendation</span><span class="zh">— LinkedIn 推薦</span></cite>
+      </blockquote>
+    </div>
+    <div class="ref-card">
+      <img src="ref-5.jpg" class="ref-img" alt="Susan Chao" onerror="this.style.visibility='hidden'">
+      <div><div class="ref-name">SUSAN CHAO</div><div class="ref-title"><span class="en">Former CEO GroupM Taiwan, Former Managing Director Mindshare Taiwan</span><span class="zh">前 GroupM 台灣首席執行官，前 Mindshare 台灣董事總經理</span></div></div>
+      <blockquote class="ref-quote">
+        <span class="en">“I’ve worked with Danny across roles and markets in China and Taiwan over the past decade, both as a partner and a direct report. Authentic, strategic, creative, optimistic and collaborative, Danny stands out as a seasoned marketer who sees beyond the obvious to create meaningful brand differentiation. He’s also an innovative thinker and an exceptional team player, someone I would welcome the opportunity to work with again.”</span>
+        <span class="zh">「過去十年間，我在中國與台灣的多個職位與市場上與 Danny 合作過，既做過他的合作夥伴，也做過他的直接下屬。Danny 真誠、有戰略眼光、富於創意、樂觀且善於協作，作為一位資深營銷人，他總能超越表象、創造有意義的品牌差異化。他也是一位創新型思考者和傑出的團隊夥伴，我期待未來還有機會與他共事。」</span>
+        <cite class="ref-source"><span class="en">— LinkedIn Recommendation</span><span class="zh">— LinkedIn 推薦</span></cite>
+      </blockquote>
+    </div>
+    <div class="ref-card">
+      <img src="ref-6.jpg" class="ref-img" alt="Clement Yip" onerror="this.style.visibility='hidden'">
+      <div>
+        <div class="ref-name">CLEMENT YIP</div>
+        <div class="ref-title"><span class="en">Founder &amp; Managing Partner of GrowForce</span><span class="zh">GrowForce 創始人兼管理合夥人</span></div>
+      </div>
+      <blockquote class="ref-quote">
+        <span class="en">“I know Danny for almost 18 years. He is always a trusted brand and marketing leader, who has great knowledge combined with market insights, business, and a strategic view in building brand, marketing tactics to win the heart of consumers. He’s a great team player and a great motivator to his team and the business partners he works with.”</span>
+        <span class="zh">「我認識 Danny 將近 18 年。他始終是一位值得信賴的品牌與營銷領導者，擁有深厚的知識，並結合市場洞察、商業思維，以及建構品牌、制定營銷策略以贏得消費者之心的戰略眼光。他是一位出色的團隊夥伴，也是團隊和他所合作的商業夥伴的傑出激勵者。」</span>
+        <cite class="ref-source"><span class="en">— LinkedIn Recommendation</span><span class="zh">— LinkedIn 推薦</span></cite>
+      </blockquote>
+    </div>
+  </div>
+</section>
+<section class="quote-section"><div class="quote"><span class="en">Let every heartbeat matter.</span><span class="zh">讓每一次心跳都有意義。</span></div></section>
+<footer id="contact">
+  <div>
+    <div class="section-label">04 / <span class="en">Let's Connect</span><span class="zh">開啟對話</span></div>
+    <h2 style="font-size:clamp(30px,4vw,48px);line-height:1.15"><span class="en">Let's build something iconic.</span><span class="zh">共創傳奇。</span></h2>
+    <a href="mailto:dannyleedaman@gmail.com" class="contact-btn"><span class="en">Get in Touch ↗</span><span class="zh">聯繫我 ↗</span></a>
+  </div>
+  <div class="footer-info">
+    <p>Shanghai, China</p><p>CN: +86 185 0165 8649</p><p>UK: +44 7422 582984</p>
+    <p><a href="mailto:dannyleedaman@gmail.com">dannyleedaman@gmail.com</a></p>
+    <p><a href="https://www.linkedin.com/in/danny-lee-61523114/" target="_blank" rel="noopener">LinkedIn Profile ↗</a></p>
+  </div>
+</footer>
+<div class="lightbox" id="lightbox" onclick="closeImg()"><span class="lightbox-close" aria-label="Close">×</span><img id="lightbox-img" src="" alt="Project preview"></div>
+<script>
+const experiences=[
+{brand:"Monks",time:"Jul 2025 – Present",role:"Managing Director, Greater China",description:"Leading Monks Greater China at the intersection of cultural influence, digital innovation and integrated production.",points:["Led marketing transformation and integrated production across Greater China.","Combined AI technologies with creative storytelling to build brands, teams and businesses."],images:[{file:"monks-1.jpg",title:"Monks Showcase",link:"https://monks.com"},{file:"monks-2.jpg",title:"Monks Project 2",link:"https://youtu.be/ZHRSj_-CqOk"},{file:"monks-3.jpg",title:"Monks Project 3",link:"https://youtu.be/-DS5TqioDOE"},{file:"monks-4.jpg",title:"Monks Project 4",link:"https://youtu.be/KF7vv8y1gsY"},{file:"monks-5.jpg",title:"Monks Project 5",link:"https://youtube.com/shorts/38OQFBh1OU4?feature=share"},{file:"monks-6.jpg",title:"Monks Project 6",link:"https://youtu.be/bVGsaafQ1jc"},{file:"monks-7.jpg",title:"Monks Project 7",link:"https://www.youtube.com/watch?v=ap3em_9w4UQ"},{file:"monks-8.jpg",title:"Monks Project 8",link:"https://www.youtube.com/watch?v=k3q9EDf1j8o"}]},
+{brand:"Bosideng",time:"May 2022 – Jan 2024",role:"Chief Global Brand Communications Officer",description:"Developed the brand's global narrative and seasonal storytelling strategy.",points:["Led the Milan fashion show at La Vigna di Leonardo on September 24, 2023.","Strengthened Bosideng's global positioning in the down apparel category."],images:[{file:"bosideng-1.jpg",title:"Milan Fashion Week",link:"https://www.youtube.com/watch?v=JTZSA8LcrAs"},{file:"bosideng-2.jpg",title:"Campaign Film",link:"https://www.youtube.com/watch?v=AlAmHJD4aCE"},{file:"bosideng-3.jpg",title:"Project 3",link:"https://www.youtube.com/watch?v=ZKaszoEFEHk"},{file:"bosideng-4.jpg",title:"Project 4",link:"https://www.youtube.com/watch?v=jovCNIAUKxw"}]},
+{brand:"Nike",time:"Mar 2013 – Jul 2019",role:"Marketing Director, Greater China",description:"Led Nike Greater China brand communication and integrated media strategy.",points:["Built 365-day brand communication strategies for Running, Basketball and Jordan.","Developed Nike SNKRS and Nike+ application communities.","Created strategic brand communication plans for Shanghai and Beijing."],images:[{file:"nike-work-1.jpg",link:"https://www.youtube.com/watch?v=N1lpW6B3m5U"},{file:"nike-work-2.jpg",link:"https://vimeo.com/122752150?su_via=got&login=true"},{file:"nike-work-3.jpg"},{file:"nike-work-4.jpg"},{file:"nike-work-5.jpg"},{file:"nike-work-6.jpg"},{file:"nike-work-7.jpg"},{file:"nike-work-8.jpg"},{file:"nike-work-9.jpg"},{file:"nike-work-10.jpg"},{file:"nike-work-11.jpg"},{file:"nike-work-12.jpg"},{file:"nike-work-13.jpg",link:"https://www.youtube.com/watch?v=c2jhMXypHzM"},{file:"nike-work-14.jpg"},{file:"nike-work-15.jpg"},{file:"nike-work-16.jpg",link:"https://www.youtube.com/watch?v=8uaawKMaM4o&list=PLP-87dAdcp5HCP4BRpq3cD_n9xZLdhaM4&index=11"}]},
+{brand:"OgilvyOne",time:"Feb 2012 – Feb 2013",role:"Senior Business Director – VW Import Cars",description:"Led digital and CRM initiatives for Volkswagen Imported Cars in China.",points:["Spearheaded comprehensive product launch plans and activities.","Won Spikes Asia 2012 Digital and Silver FWA for the Phaeton Transparent Factory Project."]},
+{brand:"Wunderman",time:"Jun 2010 – Jan 2012",role:"Business Director",description:"Led the Nokia Wunderman team, overseeing more than 40 professionals.",points:["Delivered digital marketing services to Nokia China.","Nokia N8 Social Media Launch shortlisted at Spikes Asia 2011."]},
+{brand:"Mindshare",time:"Jun 2007 – May 2010",role:"Strategic Planning Director – Team Nike",description:"Led an 18-member planning team delivering media strategy for Nike Greater China.",points:["Nike Beijing Olympics Campaign: Gold Media Award for Best Implementation Innovation.","Nike Zoom: Award for Best Use of Mobile Technology."],images:[{file:"mindshare-1.jpg",title:"Beijing Olympics Campaign",link:"https://www.youtube.com/watch?v=N1lpW6B3m5U"},{file:"mindshare-2.jpg",title:"Nike Zoom Campaign",link:"https://vimeo.com/122752150?su_via=got&login=true"}]}
+];
+const experienceList=document.getElementById("experienceList");
+experienceList.innerHTML=experiences.map(item=>`
+<article class="exp-item">
+  <div class="exp-header" role="button" tabindex="0" aria-expanded="false">
+    <div><div class="exp-brand">${item.brand}</div><div class="exp-time">${item.time}</div><div class="exp-role">${item.role}</div></div>
+    <div class="exp-icon">+</div>
+  </div>
+  <div class="exp-details">
+    <div class="exp-inner">
+      <div class="exp-text"><p>${item.description}</p><ul>${item.points.map(p=>`<li>${p}</li>`).join("")}</ul></div>
+      ${item.images?`<div class="work-gallery">${item.images.map(img=>{const content=`<img src="${img.file}" alt="${img.title||item.brand}" onerror="this.style.opacity='0'">${img.title?`<div class="gallery-overlay">${img.title} ↗</div>`:""}`;return img.link?`<a class="gallery-item" href="${img.link}" target="_blank" rel="noopener">${content}</a>`:`<div class="gallery-item" onclick="openImg('${img.file}')">${content}</div>`;}).join("")}</div>`:""}
+    </div>
+  </div>
+</article>`).join("");
+document.querySelectorAll(".exp-header").forEach(header=>{
+  function toggle(){
+    const item=header.closest(".exp-item");
+    const wasActive=item.classList.contains("active");
+    document.querySelectorAll(".exp-item").forEach(el=>{el.classList.remove("active");el.querySelector(".exp-details").style.maxHeight=null;el.querySelector(".exp-header").setAttribute("aria-expanded","false");});
+    if(!wasActive){item.classList.add("active");const details=item.querySelector(".exp-details");details.style.maxHeight=(details.scrollHeight+200)+"px";header.setAttribute("aria-expanded","true");}
+  }
+  header.addEventListener("click",toggle);
+  header.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();toggle();}});
+});
+function openImg(src){document.getElementById("lightbox-img").src=src;document.getElementById("lightbox").classList.add("active");}
+function closeImg(){document.getElementById("lightbox").classList.remove("active");document.getElementById("lightbox-img").src="";}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeImg();});
+function applyLang(isZh){document.body.classList.toggle('zh-active',isZh);document.getElementById("langBtn").textContent=isZh?"CN / EN":"EN / CN";document.documentElement.lang=isZh?"zh-CN":"en";localStorage.setItem('lang',isZh?'zh':'en');}
+function toggleLang(){applyLang(!document.body.classList.contains('zh-active'));}
+(function initLang(){const saved=localStorage.getItem('lang');if(saved==='zh'){applyLang(true);}else{document.getElementById("langBtn").textContent="EN / CN";}})();
+</script>
+</body>
+</html>
+</body>
+</html>
